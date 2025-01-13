@@ -5,6 +5,8 @@ check_user_type(1); // 1 for supervisor
 require_once 'db_connection.php';
 require_once 'fetch_sales.php'; // Ensure this file exists and is in the correct path
 require_once 'fetch_inventory.php'; // Ensure this file exists and is in the correct path
+require_once 'fetch_small_inventory.php';
+require_once 'fetch_hot_items.php';
 
 // Initialize filter variables
 $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : date('Y-m-d', strtotime('-1 month'));
@@ -16,6 +18,9 @@ list($daily_sales, $weekly_sales, $monthly_sales) = fetch_sales_data($conn, $sta
 
 // Fetch inventory data
 $inventory_data = fetch_inventory_data($conn);
+
+// Fetch small inventory data
+$small_inventory_data = fetch_small_inventory_data($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,11 +57,17 @@ $inventory_data = fetch_inventory_data($conn);
         <!-- Navigation for Reports -->
         <div class="mb-4">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="?view=sales" class="btn btn-primary btn-lg btn-block">Sales Report</a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="?view=inventory" class="btn btn-secondary btn-lg btn-block">Inventory Report</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="?view=small_inventory" class="btn btn-info btn-lg btn-block">Raw Materials Inventory</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="?view=hot_items" class="btn btn-danger btn-lg btn-block">Hot Selling Items</a>
                 </div>
             </div>
         </div>
@@ -174,6 +185,93 @@ $inventory_data = fetch_inventory_data($conn);
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        <?php
+        } elseif ($view === 'small_inventory') {
+        ?>
+            <h2>Raw Materials Inventory</h2>
+            <div class="mb-3">
+                <a href="?view=small_inventory&sort=id" class="btn btn-primary">Sort by ID</a>
+                <a href="?view=small_inventory&sort=name" class="btn btn-secondary">Sort by Name</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ingredient Name</th>
+                            <th>Quantity (kg)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($small_inventory_data as $item): ?>
+                            <tr <?php echo $item['Ingredient_kg'] < 20 ? 'class="table-warning"' : ''; ?>>
+                                <td><?php echo htmlspecialchars($item['Inventory_ID']); ?></td>
+                                <td><?php echo htmlspecialchars($item['Ingredient_Name']); ?></td>
+                                <td><?php echo number_format($item['Ingredient_kg'], 2); ?></td>
+                                <td>
+                                    <?php if ($item['Ingredient_kg'] < 20): ?>
+                                        <span class="badge bg-warning">Low Stock</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-success">Sufficient</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php
+        } elseif ($view === 'hot_items') {
+            $hot_items = fetch_hot_items($conn, $start_date, $end_date);
+        ?>
+            <h2>Hot Selling Items</h2>
+            
+            <!-- Filter Form -->
+            <form method="POST" class="mb-4">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" name="start_date" value="<?php echo htmlspecialchars($start_date); ?>" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" name="end_date" value="<?php echo htmlspecialchars($end_date); ?>" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary form-control">Filter</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Product Name</th>
+                            <th>Total Quantity Sold</th>
+                            <th>Total Revenue</th>
+                            <th>Percentage of Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $rank = 1;
+                        foreach ($hot_items as $item): 
+                        ?>
+                            <tr>
+                                <td><?php echo $rank++; ?></td>
+                                <td><?php echo htmlspecialchars($item['product_name']); ?></td>
+                                <td><?php echo number_format($item['total_quantity']); ?></td>
+                                <td>RM<?php echo number_format($item['total_revenue'], 2); ?></td>
+                                <td><?php echo number_format($item['sales_percentage'], 1); ?>%</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php
         }
         ?>

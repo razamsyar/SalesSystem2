@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2025 at 06:23 PM
+-- Generation Time: Jan 13, 2025 at 03:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `daily_sales` (
 --
 
 INSERT INTO `daily_sales` (`id`, `clerk_id`, `date`, `total_orders`, `total_sales`, `cash_orders`, `cash_sales`, `card_orders`, `card_sales`, `created_at`) VALUES
-(5, 16, '2024-12-28', 2, 16.00, 2, 16.00, 0, 0.00, '2024-12-28 03:45:51');
+(5, 16, '2024-12-28', 2, 16.00, 2, 16.00, 0, 0.00, '2024-12-28 03:45:51'),
+(7, 16, '2025-01-13', 2, 7.70, 1, 4.00, 0, 0.00, '2025-01-13 14:05:52');
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,10 @@ INSERT INTO `guest` (`id`, `fullname`, `contact`, `address`, `email`, `password`
 (19, 'Alif Ibrahim', '01234567890', '-', 'walk-in-1735397966', '', '', 3, '2024-12-28 22:59:26', NULL),
 (20, 'Tuan Muhammad Farhan Bin Tuan Rashid', '0197909367', 'Jalan Surabaya', 'farhanrashid293@gmail.com', '$2y$10$8y/CVwWah74WMI0AQygoq.SfPHB2Eds/eCk3W3ItdilZYfSgGdag.', '', 3, '2024-12-28 23:19:20', ''),
 (21, 'Abqari', '0197909311', 'NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA', 'abqari@gmail.com', '$2y$10$EDVI7OCu9XxTZ3KCT/fad.bMw3zbZI.5boG6RJgvHAIUqGoOTHP3q', '', 3, '2024-12-29 01:43:48', ''),
-(22, 'Mohammed Umair bin Mohammed Suhaimee', '601157033208', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'umair1211@gmail.com', '$2y$10$0vQAdGDcTmh./sxFtvrC6uoN.En498cHaG19Qf9QA5rH2NphY763u', '', 3, '2025-01-12 22:21:34', NULL);
+(22, 'Mohammed Umair bin Mohammed Suhaimee', '601157033208', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'umair1211@gmail.com', '$2y$10$0vQAdGDcTmh./sxFtvrC6uoN.En498cHaG19Qf9QA5rH2NphY763u', '', 3, '2025-01-12 22:21:34', NULL),
+(23, 'farhanrashid', '0197909367', 'NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA', 'farhanras@gmail.com', '$2y$10$M5E.2zSMROKvV91hYNL9luGbgZaexi2odL8Qm.n1Kk2coUUxFRyzS', '8211c2ca72eca89e751af21cb197e09f3b8a6d004e238f02fa99b987933a55c7', 3, '2025-01-13 21:19:03', NULL),
+(24, 'Tuan Muhammad Farhan Bin Tuan Rashid', '0197909367', '-', 'walk-in-1736777152', '', '', 3, '2025-01-13 22:05:52', NULL),
+(25, 'PAAN', '0197909367', '-', 'walk-in-1736778073', '', '', 3, '2025-01-13 22:21:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,23 +133,23 @@ CREATE TABLE `inventory` (
 INSERT INTO `inventory` (`id`, `product_name`, `description`, `category`, `unit_price`, `stock_level`, `reorder_point`, `status`, `created_at`, `updated_at`) VALUES
 (9, 'Classic Butter Bun', NULL, '', 1.50, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 07:04:55'),
 (10, 'Chocolate Croissant', NULL, '', 2.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:36:37'),
-(11, 'Almond Danish', NULL, '', 2.50, 97, 0, 'active', '2024-12-28 07:04:55', '2025-01-12 14:22:27'),
+(11, 'Almond Danish', NULL, '', 2.50, 88, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 14:23:12'),
 (12, 'Cinnamon Roll Delight', NULL, '', 2.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 18:19:31'),
-(13, 'Roti Canai Special', NULL, '', 1.20, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:36:46'),
+(13, 'Roti Canai Special', NULL, '', 1.20, 99, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 14:21:13'),
 (14, 'Pineapple Tart', NULL, '', 3.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:36:50'),
 (15, 'Red Bean Bun', NULL, '', 1.80, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:36:53'),
 (16, 'Mango Mousse Cake', NULL, '', 5.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:40'),
-(17, 'Cheese Puff Pastry', NULL, '', 2.80, 95, 0, 'active', '2024-12-28 07:04:55', '2025-01-12 14:34:46'),
+(17, 'Cheese Puff Pastry', NULL, '', 2.80, 94, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 13:22:43'),
 (18, 'Matcha Green Tea Cake', NULL, '', 4.50, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:34'),
-(19, 'Blueberry Muffin', NULL, '', 1.50, 90, 0, 'active', '2024-12-28 07:04:55', '2025-01-12 14:34:46'),
+(19, 'Blueberry Muffin', NULL, '', 1.50, 82, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 14:30:24'),
 (20, 'Honey Oat Bread', NULL, '', 2.20, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:26'),
 (21, 'Spicy Tuna Puff', NULL, '', 2.50, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:21'),
-(22, 'Egg Tart', NULL, '', 1.80, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:19'),
+(22, 'Egg Tart', NULL, '', 1.80, 99, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 14:23:12'),
 (23, 'Fruit Tartlet', NULL, '', 3.50, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:14'),
 (24, 'Vanilla Cream Puff', NULL, '', 2.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:10'),
 (25, 'Sesame Seed Bun', NULL, '', 1.50, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 07:04:55'),
 (26, 'Lemon Drizzle Cake', NULL, '', 4.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:37:06'),
-(27, 'Caramel Pecan Pie', NULL, '', 5.50, 96, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 18:20:16'),
+(27, 'Caramel Pecan Pie', NULL, '', 5.50, 95, 0, 'active', '2024-12-28 07:04:55', '2025-01-13 13:22:43'),
 (28, 'Roti Jala (Lace Pancake)', NULL, '', 1.00, 100, 0, 'active', '2024-12-28 07:04:55', '2024-12-28 17:36:59');
 
 -- --------------------------------------------------------
@@ -177,7 +181,24 @@ INSERT INTO `inventory_transactions` (`id`, `product_id`, `order_id`, `clerk_id`
 (34, 17, 47, NULL, 'sale', 2, 100, 98, '2024-12-28 18:20:16'),
 (35, 11, 48, NULL, 'sale', 1, 98, 97, '2025-01-12 14:22:27'),
 (36, 19, 49, NULL, 'sale', 6, 96, 90, '2025-01-12 14:34:46'),
-(37, 17, 49, NULL, 'sale', 1, 96, 95, '2025-01-12 14:34:46');
+(37, 17, 49, NULL, 'sale', 1, 96, 95, '2025-01-12 14:34:46'),
+(38, 11, 53, NULL, 'sale', 1, 97, 96, '2025-01-13 13:19:12'),
+(39, 19, 53, NULL, 'sale', 1, 90, 89, '2025-01-13 13:19:12'),
+(40, 11, 54, NULL, 'sale', 1, 96, 95, '2025-01-13 13:20:00'),
+(41, 19, 54, NULL, 'sale', 1, 89, 88, '2025-01-13 13:20:00'),
+(42, 11, 55, NULL, 'sale', 2, 95, 93, '2025-01-13 13:21:25'),
+(43, 19, 55, NULL, 'sale', 2, 88, 86, '2025-01-13 13:21:25'),
+(44, 27, 56, NULL, 'sale', 1, 96, 95, '2025-01-13 13:22:43'),
+(45, 17, 56, NULL, 'sale', 1, 95, 94, '2025-01-13 13:22:43'),
+(46, 11, 57, NULL, 'sale', 1, 92, 91, '2025-01-13 13:22:59'),
+(47, 19, 57, NULL, 'sale', 1, 85, 84, '2025-01-13 13:22:59'),
+(48, 11, 58, 16, 'sale', 1, 91, 90, '2025-01-13 14:05:52'),
+(49, 19, 58, 16, 'sale', 1, 84, 83, '2025-01-13 14:05:52'),
+(50, 11, 59, 16, 'sale', 1, 90, 89, '2025-01-13 14:21:13'),
+(51, 13, 59, 16, 'sale', 1, 100, 99, '2025-01-13 14:21:13'),
+(52, 11, 60, NULL, 'sale', 1, 89, 88, '2025-01-13 14:23:12'),
+(53, 19, 60, NULL, 'sale', 1, 83, 82, '2025-01-13 14:23:12'),
+(54, 22, 60, NULL, 'sale', 1, 100, 99, '2025-01-13 14:23:12');
 
 -- --------------------------------------------------------
 
@@ -206,10 +227,19 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `guest_id`, `order_number`, `order_date`, `total_amount`, `status`, `payment_method`, `payment_status`, `delivery_address`, `order_type`, `clerk_id`, `notes`, `created_at`) VALUES
-(46, 20, 'ORD1735409999', '2024-12-29 02:19:59', 5.50, 'pending', 'cash', 'pending', 'Jalan Surabaya', 'online', NULL, NULL, '2024-12-28 18:19:59'),
-(47, 21, 'ORD1735410016', '2024-12-29 02:20:16', 16.60, 'pending', 'online', 'pending', 'NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA', 'online', NULL, NULL, '2024-12-28 18:20:16'),
-(48, 22, 'ORD1736691747', '2025-01-12 22:22:27', 2.50, 'pending', 'cash', 'pending', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'online', NULL, NULL, '2025-01-12 14:22:27'),
-(49, 22, 'ORD1736692486', '2025-01-12 22:34:46', 11.80, 'pending', 'cash', 'pending', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'online', NULL, NULL, '2025-01-12 14:34:46');
+(46, 20, 'ORD1735409999', '2024-12-29 02:19:59', 5.50, 'completed', 'cash', 'paid', 'Jalan Surabaya', 'online', 16, NULL, '2024-12-28 18:19:59'),
+(47, 21, 'ORD1735410016', '2024-12-29 02:20:16', 16.60, 'completed', 'online', 'paid', 'NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA', 'online', 16, NULL, '2024-12-28 18:20:16'),
+(48, 22, 'ORD1736691747', '2025-01-12 22:22:27', 2.50, 'completed', 'cash', 'paid', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'online', 16, NULL, '2025-01-12 14:22:27'),
+(49, 22, 'ORD1736692486', '2025-01-12 22:34:46', 11.80, 'completed', 'cash', 'paid', 'Lot 13, Kampung Baru, Pulau Sayak, 08500, Kota Kuala Muda, Kedah', 'online', 16, NULL, '2025-01-12 14:34:46'),
+(53, 23, 'ORD1736774352', '2025-01-13 21:19:12', 4.00, 'pending', 'cash', 'pending', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', NULL, NULL, '2025-01-13 13:19:12'),
+(54, 23, 'ORD1736774400', '2025-01-13 21:20:00', 4.00, 'pending', 'cash', 'pending', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', NULL, NULL, '2025-01-13 13:20:00'),
+(55, 23, 'ORD1736774485', '2025-01-13 21:21:25', 8.00, 'pending', 'cash', 'pending', 'NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA', 'online', NULL, NULL, '2025-01-13 13:21:25'),
+(56, 23, 'ORD1736774563', '2025-01-13 21:22:43', 8.30, 'pending', 'cash', 'pending', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', NULL, NULL, '2025-01-13 13:22:43'),
+(57, 23, 'ORD1736774579', '2025-01-13 21:22:59', 4.00, 'pending', 'card', 'pending', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', NULL, NULL, '2025-01-13 13:22:59'),
+(58, 24, 'POS1736777152', '2025-01-13 22:05:52', 4.00, 'completed', 'cash', 'paid', NULL, 'in-store', 16, NULL, '2025-01-13 14:05:52'),
+(59, 25, 'POS1736778073', '2025-01-13 22:21:13', 3.70, 'completed', 'online', 'paid', NULL, 'in-store', 16, NULL, '2025-01-13 14:21:13'),
+(60, 23, 'ORD1736778192', '2025-01-13 22:23:12', 5.80, 'completed', 'online', 'paid', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', 16, NULL, '2025-01-13 14:23:12'),
+(61, 23, 'ORD1736778576', '2025-01-13 22:29:36', 180.00, 'pending', 'cash', 'pending', '                                NO S-48/50-A BATU 1  1/2\r\nJALAN PENGKALAN CHEPA                            ', 'online', NULL, NULL, '2025-01-13 14:29:36');
 
 --
 -- Triggers `orders`
@@ -276,7 +306,24 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_pri
 (41, 47, 17, 2, 2.80, 5.60),
 (42, 48, 11, 1, 2.50, 2.50),
 (43, 49, 19, 6, 1.50, 9.00),
-(44, 49, 17, 1, 2.80, 2.80);
+(44, 49, 17, 1, 2.80, 2.80),
+(45, 53, 11, 1, 2.50, 2.50),
+(46, 53, 19, 1, 1.50, 1.50),
+(47, 54, 11, 1, 2.50, 2.50),
+(48, 54, 19, 1, 1.50, 1.50),
+(49, 55, 11, 2, 2.50, 5.00),
+(50, 55, 19, 2, 1.50, 3.00),
+(51, 56, 27, 1, 5.50, 5.50),
+(52, 56, 17, 1, 2.80, 2.80),
+(53, 57, 11, 1, 2.50, 2.50),
+(54, 57, 19, 1, 1.50, 1.50),
+(55, 58, 11, 1, 2.50, 2.50),
+(56, 58, 19, 1, 1.50, 1.50),
+(57, 59, 11, 1, 2.50, 2.50),
+(58, 59, 13, 1, 1.20, 1.20),
+(59, 60, 11, 1, 2.50, 2.50),
+(60, 60, 19, 1, 1.50, 1.50),
+(61, 60, 22, 1, 1.80, 1.80);
 
 --
 -- Triggers `order_items`
@@ -335,148 +382,108 @@ CREATE TABLE `productingredients` (
 -- Dumping data for table `productingredients`
 --
 
-INSERT INTO `productingredients` (Product_ID, Inventory_ID, Quantity_Needed)
-VALUES
-    -- Classic Butter Bun (id = 9)
-    (9, 3,  0.08),   -- Bread Flour (e.g., 80 g -> 0.08 kg)
-    (9, 37, 0.02),   -- Unsalted Butter (20 g -> 0.02 kg)
-    (9, 14, 0.01),   -- Granulated Sugar (10 g -> 0.01 kg)
-    (9, 35, 0.002),  -- Granulated Table Salt (2 g -> 0.002 kg)
-    (9, 38, 0.02),   -- Large Eggs (about 20 g of egg content per bun)
+INSERT INTO `productingredients` (`Product_ID`, `Inventory_ID`, `Quantity_Needed`) VALUES
+(9, 3, 0.08),
+(9, 14, 0.01),
+(9, 35, 0.002),
+(9, 37, 0.02),
+(9, 38, 0.02),
+(10, 4, 0.08),
+(10, 14, 0.01),
+(10, 35, 0.002),
+(10, 37, 0.03),
+(10, 55, 0.02),
+(11, 3, 0.08),
+(11, 14, 0.01),
+(11, 35, 0.002),
+(11, 37, 0.02),
+(11, 61, 0.02),
+(12, 3, 0.1),
+(12, 14, 0.02),
+(12, 35, 0.002),
+(12, 37, 0.03),
+(12, 50, 0.005),
+(13, 2, 0.1),
+(13, 35, 0.002),
+(13, 37, 0.02),
+(13, 38, 0.03),
+(13, 43, 0.01),
+(14, 5, 0.05),
+(14, 14, 0.01),
+(14, 35, 0.002),
+(14, 37, 0.02),
+(14, 38, 0.01),
+(15, 3, 0.08),
+(15, 16, 0.02),
+(15, 35, 0.002),
+(15, 37, 0.02),
+(15, 38, 0.02),
+(16, 4, 0.08),
+(16, 14, 0.02),
+(16, 35, 0.002),
+(16, 39, 0.02),
+(16, 42, 0.03),
+(17, 5, 0.08),
+(17, 14, 0.01),
+(17, 35, 0.002),
+(17, 37, 0.02),
+(17, 42, 0.03),
+(18, 4, 0.08),
+(18, 14, 0.02),
+(18, 35, 0.002),
+(18, 38, 0.02),
+(18, 64, 0.01),
+(19, 6, 0.08),
+(19, 14, 0.01),
+(19, 23, 0.03),
+(19, 35, 0.002),
+(19, 37, 0.02),
+(20, 1, 0.1),
+(20, 30, 0.02),
+(20, 35, 0.002),
+(20, 38, 0.02),
+(20, 60, 0.02),
+(21, 5, 0.08),
+(21, 14, 0.01),
+(21, 35, 0.002),
+(21, 38, 0.02),
+(21, 43, 0.02),
+(22, 5, 0.05),
+(22, 14, 0.02),
+(22, 35, 0.002),
+(22, 37, 0.02),
+(22, 38, 0.03),
+(23, 5, 0.05),
+(23, 14, 0.02),
+(23, 22, 0.02),
+(23, 35, 0.002),
+(23, 37, 0.02),
+(24, 5, 0.05),
+(24, 14, 0.01),
+(24, 35, 0.002),
+(24, 37, 0.02),
+(24, 45, 0.001),
+(25, 2, 0.08),
+(25, 14, 0.01),
+(25, 35, 0.002),
+(25, 37, 0.02),
+(25, 38, 0.02),
+(26, 4, 0.08),
+(26, 14, 0.02),
+(26, 35, 0.002),
+(26, 38, 0.02),
+(26, 47, 0.001),
+(27, 4, 0.08),
+(27, 16, 0.02),
+(27, 35, 0.002),
+(27, 37, 0.02),
+(27, 61, 0.02),
+(28, 6, 0.08),
+(28, 35, 0.002),
+(28, 38, 0.03),
+(28, 39, 0.02),
+(28, 43, 0.01);
 
-    -- Chocolate Croissant (id = 10)
-    (10, 4,  0.08),  -- Cake Flour
-    (10, 37, 0.03),  -- Unsalted Butter
-    (10, 55, 0.02),  -- Chocolate Chips
-    (10, 35, 0.002), -- Salt
-    (10, 14, 0.01),  -- Granulated Sugar
-
-    -- Almond Danish (id = 11)
-    (11, 3,  0.08),  -- Bread Flour
-    (11, 37, 0.02),  -- Unsalted Butter
-    (11, 14, 0.01),  -- Granulated Sugar
-    (11, 35, 0.002), -- Salt
-    (11, 61, 0.02),  -- Nuts (approximating almonds)
-
-    -- Cinnamon Roll Delight (id = 12)
-    (12, 3,  0.10),  -- Bread Flour
-    (12, 37, 0.03),  -- Unsalted Butter
-    (12, 14, 0.02),  -- Granulated Sugar
-    (12, 50, 0.005), -- Ground Cinnamon (5 g -> 0.005 kg)
-    (12, 35, 0.002), -- Salt
-
-    -- Roti Canai Special (id = 13)
-    (13, 2,  0.10),  -- Whole Grain Flour (example choice)
-    (13, 37, 0.02),  -- Unsalted Butter
-    (13, 35, 0.002), -- Salt
-    (13, 38, 0.03),  -- Eggs
-    (13, 43, 0.01),  -- Vegetable Oil
-
-    -- Pineapple Tart (id = 14)
-    (14, 5,  0.05),  -- Pastry Flour
-    (14, 37, 0.02),  -- Unsalted Butter
-    (14, 14, 0.01),  -- Granulated Sugar
-    (14, 35, 0.002), -- Salt
-    (14, 38, 0.01),  -- Eggs
-
-    -- Red Bean Bun (id = 15)
-    (15, 3,  0.08),  -- Bread Flour
-    (15, 37, 0.02),  -- Unsalted Butter
-    (15, 35, 0.002), -- Salt
-    (15, 38, 0.02),  -- Eggs
-    (15, 16, 0.02),  -- Brown Sugar
-
-    -- Mango Mousse Cake (id = 16)
-    (16, 4,  0.08),  -- Cake Flour
-    (16, 42, 0.03),  -- Cream Cheese (for mousse part, example)
-    (16, 39, 0.02),  -- Milk
-    (16, 14, 0.02),  -- Granulated Sugar
-    (16, 35, 0.002), -- Salt
-
-    -- Cheese Puff Pastry (id = 17)
-    (17, 5,  0.08),  -- Pastry Flour
-    (17, 37, 0.02),  -- Unsalted Butter
-    (17, 42, 0.03),  -- Cream Cheese (cheesy filling)
-    (17, 14, 0.01),  -- Granulated Sugar
-    (17, 35, 0.002), -- Salt
-
-    -- Matcha Green Tea Cake (id = 18)
-    (18, 4,  0.08),  -- Cake Flour
-    (18, 64, 0.01),  -- Matcha Powder (10 g -> 0.01 kg)
-    (18, 14, 0.02),  -- Granulated Sugar
-    (18, 35, 0.002), -- Salt
-    (18, 38, 0.02),  -- Eggs
-
-    -- Blueberry Muffin (id = 19)
-    (19, 6,  0.08),  -- Self-Rising Flour
-    (19, 37, 0.02),  -- Unsalted Butter
-    (19, 23, 0.03),  -- Blueberry Jams (as a stand-in for real blueberries)
-    (19, 14, 0.01),  -- Granulated Sugar
-    (19, 35, 0.002), -- Salt
-
-    -- Honey Oat Bread (id = 20)
-    (20, 1,  0.10),  -- Whole Wheat Flour
-    (20, 60, 0.02),  -- Rolled Oats
-    (20, 30, 0.02),  -- Honey
-    (20, 35, 0.002), -- Salt
-    (20, 38, 0.02),  -- Eggs
-
-    -- Spicy Tuna Puff (id = 21)
-    -- (No tuna in small_inventory, so just flour + basics as an example)
-    (21, 5,  0.08),  -- Pastry Flour
-    (21, 43, 0.02),  -- Vegetable Oil
-    (21, 14, 0.01),  -- Granulated Sugar
-    (21, 35, 0.002), -- Salt
-    (21, 38, 0.02),  -- Eggs
-
-    -- Egg Tart (id = 22)
-    (22, 5,  0.05),  -- Pastry Flour
-    (22, 37, 0.02),  -- Unsalted Butter
-    (22, 14, 0.02),  -- Granulated Sugar
-    (22, 35, 0.002), -- Salt
-    (22, 38, 0.03),  -- Eggs
-
-    -- Fruit Tartlet (id = 23)
-    (23, 5,  0.05),  -- Pastry Flour
-    (23, 37, 0.02),  -- Unsalted Butter
-    (23, 14, 0.02),  -- Granulated Sugar
-    (23, 35, 0.002), -- Salt
-    (23, 22, 0.02),  -- Strawberry Jams (as fruit topping example)
-
-    -- Vanilla Cream Puff (id = 24)
-    (24, 5,  0.05),  -- Pastry Flour
-    (24, 37, 0.02),  -- Unsalted Butter
-    (24, 14, 0.01),  -- Granulated Sugar
-    (24, 35, 0.002), -- Salt
-    (24, 45, 0.001), -- Pure Vanilla Extract (1 g -> 0.001 kg)
-
-    -- Sesame Seed Bun (id = 25)
-    (25, 2,  0.08),  -- Whole Grain Flour
-    (25, 37, 0.02),  -- Unsalted Butter
-    (25, 14, 0.01),  -- Granulated Sugar
-    (25, 35, 0.002), -- Salt
-    (25, 38, 0.02),  -- Eggs
-
-    -- Lemon Drizzle Cake (id = 26)
-    (26, 4,  0.08),  -- Cake Flour
-    (26, 14, 0.02),  -- Granulated Sugar
-    (26, 35, 0.002), -- Salt
-    (26, 38, 0.02),  -- Eggs
-    (26, 47, 0.001), -- Lemon Extract (1 g -> 0.001 kg)
-
-    -- Caramel Pecan Pie (id = 27)
-    (27, 4,  0.08),  -- Cake Flour
-    (27, 16, 0.02),  -- Brown Sugar
-    (27, 61, 0.02),  -- Nuts (approx. pecans)
-    (27, 35, 0.002), -- Salt
-    (27, 37, 0.02),  -- Unsalted Butter
-
-    -- Roti Jala (Lace Pancake) (id = 28)
-    (28, 6,  0.08),  -- Self-Rising Flour
-    (28, 38, 0.03),  -- Eggs
-    (28, 39, 0.02),  -- Milk
-    (28, 35, 0.002), -- Salt
-    (28, 43, 0.01);  -- Vegetable Oil
 -- --------------------------------------------------------
 
 --
@@ -521,10 +528,10 @@ CREATE TABLE `small_inventory` (
 INSERT INTO `small_inventory` (`Inventory_ID`, `Ingredient_Name`, `Ingredient_kg`) VALUES
 (1, 'Whole Wheat Flour', 100),
 (2, 'Whole Grain Flour', 100),
-(3, 'Bread Flour', 100),
-(4, 'Cake Flour', 50),
-(5, 'Pastry Flour', 60),
-(6, 'Self-Rising Flour', 20),
+(3, 'Bread Flour', 99.68),
+(4, 'Cake Flour', 49.92),
+(5, 'Pastry Flour', 59.870000000000005),
+(6, 'Self-Rising Flour', 10.080000000000007),
 (7, 'Alternative Non-Wheat Flour', 20),
 (8, 'Cornmeal', 10),
 (9, 'Cornstarch', 70),
@@ -532,16 +539,16 @@ INSERT INTO `small_inventory` (`Inventory_ID`, `Ingredient_Name`, `Ingredient_kg
 (11, 'Baking Powder', 10),
 (12, 'Yeast', 10),
 (13, 'Sourdough Starters', 10),
-(14, 'Granulated Sugar', 100),
+(14, 'Granulated Sugar', 98.68999999999996),
 (15, 'Powdered Sugar', 100),
-(16, 'Brown Sugar', 100),
+(16, 'Brown Sugar', 99.98),
 (17, 'Castor Sugar', 100),
 (18, 'Coarse Sugar', 100),
 (19, 'Date Sugar', 20),
 (20, 'Coconut Sugar', 20),
 (21, 'Maple Sugar', 20),
 (22, 'Strawberry Jams', 40),
-(23, 'Blueberry Jams', 40),
+(23, 'Blueberry Jams', 36.279999999999994),
 (24, 'Peanut Butter', 50),
 (25, 'Red Food Coloring', 5),
 (26, 'Blue Food Coloring', 5),
@@ -553,14 +560,14 @@ INSERT INTO `small_inventory` (`Inventory_ID`, `Ingredient_Name`, `Ingredient_kg
 (32, 'Maple Syrup', 30),
 (33, 'Cane Syrup', 20),
 (34, 'Agave Syrup', 20),
-(35, 'Granulated Table Salt', 20),
+(35, 'Granulated Table Salt', 19.738000000000014),
 (36, 'Sea Salt', 20),
-(37, 'Unsalted Butter', 50),
-(38, 'Large Eggs', 120),
+(37, 'Unsalted Butter', 47.37999999999997),
+(38, 'Large Eggs', 119.97),
 (39, 'Milk', 100),
 (40, 'Buttermilk', 100),
 (41, 'Alternative Milks', 100),
-(42, 'Cream Cheese', 100),
+(42, 'Cream Cheese', 99.97),
 (43, 'Vegetable Oil', 50),
 (44, 'Shortening', 20),
 (45, 'Pure Vanilla Extract', 10),
@@ -579,7 +586,7 @@ INSERT INTO `small_inventory` (`Inventory_ID`, `Ingredient_Name`, `Ingredient_kg
 (58, 'Raisins', 20),
 (59, 'Cranberries', 100),
 (60, 'Rolled Oats', 50),
-(61, 'Nuts', 50),
+(61, 'Nuts', 49.899999999999984),
 (62, 'Sprinkles', 10),
 (63, 'Crystalized Ginger', 10),
 (64, 'Matcha Powder', 100),
@@ -671,7 +678,7 @@ ALTER TABLE `small_inventory`
 -- AUTO_INCREMENT for table `daily_sales`
 --
 ALTER TABLE `daily_sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `employee_ids`
@@ -683,7 +690,7 @@ ALTER TABLE `employee_ids`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -695,19 +702,19 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_transactions`
 --
 ALTER TABLE `inventory_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `promotions`

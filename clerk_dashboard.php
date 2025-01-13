@@ -13,7 +13,9 @@ $stmt = $conn->prepare("
         COUNT(CASE WHEN payment_method = 'cash' THEN 1 END) as cash_orders,
         SUM(CASE WHEN payment_method = 'cash' THEN total_amount ELSE 0 END) as cash_sales,
         COUNT(CASE WHEN payment_method = 'card' THEN 1 END) as card_orders,
-        SUM(CASE WHEN payment_method = 'card' THEN total_amount ELSE 0 END) as card_sales
+        SUM(CASE WHEN payment_method = 'card' THEN total_amount ELSE 0 END) as card_sales,
+        COUNT(CASE WHEN payment_method = 'online' THEN 1 END) as online_orders,
+        SUM(CASE WHEN payment_method = 'online' THEN total_amount ELSE 0 END) as online_sales
     FROM orders 
     WHERE DATE(order_date) = ? 
     AND clerk_id = ? 
@@ -340,30 +342,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_action'])) {
                     <div class="card-body">
                         <h5 class="card-title">Today's Statistics</h5>
                         <div class="row g-3">
-                            <div class="col-6">
-                                <div class="border rounded p-2">
-                                    <div class="text-muted small">Total Orders</div>
-                                    <h3 class="mb-0"><?php echo $daily_stats['total_orders']; ?></h3>
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Orders</h6>
+                                        <h3><?php echo $daily_stats['total_orders']; ?></h3>
+                                        <p class="mb-0">RM<?php echo number_format($daily_stats['total_sales'], 2); ?></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="border rounded p-2">
-                                    <div class="text-muted small">Total Sales</div>
-                                    <h3 class="mb-0">RM<?php echo number_format($daily_stats['total_sales'], 2); ?></h3>
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Cash Payments</h6>
+                                        <h3><?php echo $daily_stats['cash_orders']; ?></h3>
+                                        <p class="mb-0">RM<?php echo number_format($daily_stats['cash_sales'], 2); ?></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="border rounded p-2">
-                                    <div class="text-muted small">Cash Sales</div>
-                                    <div>Orders: <?php echo $daily_stats['cash_orders']; ?></div>
-                                    <div>Amount: RM<?php echo number_format($daily_stats['cash_sales'], 2); ?></div>
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Card Payments</h6>
+                                        <h3><?php echo $daily_stats['card_orders']; ?></h3>
+                                        <p class="mb-0">RM<?php echo number_format($daily_stats['card_sales'], 2); ?></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="border rounded p-2">
-                                    <div class="text-muted small">Card Sales</div>
-                                    <div>Orders: <?php echo $daily_stats['card_orders']; ?></div>
-                                    <div>Amount: RM<?php echo number_format($daily_stats['card_sales'], 2); ?></div>
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Online Banking</h6>
+                                        <h3><?php echo $daily_stats['online_orders']; ?></h3>
+                                        <p class="mb-0">RM<?php echo number_format($daily_stats['online_sales'], 2); ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -409,8 +421,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_action'])) {
                             <div class="mb-3">
                                 <label class="form-label">Payment Method</label>
                                 <select name="payment_method" class="form-select" required>
+                                    <option value="">Select Payment Method</option>
                                     <option value="cash">Cash</option>
                                     <option value="card">Card</option>
+                                    <option value="online">Online Banking</option>
                                 </select>
                             </div>
 
@@ -491,7 +505,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_action'])) {
                                                 </td>
                                                 <td>RM<?php echo number_format($order['total_amount'], 2); ?></td>
                                                 <td>
-                                                    <span class="badge bg-<?php echo $order['payment_method'] === 'cash' ? 'success' : 'info'; ?>">
+                                                    <span class="badge bg-<?php 
+                                                        echo match($order['payment_method']) {
+                                                            'cash' => 'success',
+                                                            'card' => 'info',
+                                                            'online' => 'primary',
+                                                            default => 'secondary'
+                                                        };
+                                                    ?>">
                                                         <?php echo ucfirst($order['payment_method']); ?>
                                                     </span>
                                                 </td>

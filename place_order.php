@@ -71,12 +71,21 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// Fetch products (ignoring stock_level, but still ignoring inactive)
+// Fetch products with actual stock level
 $stmt = $conn->prepare("
-    SELECT * 
-    FROM inventory 
-    WHERE status = 'active'
-    ORDER BY category, product_name
+    SELECT i.*, 
+           COALESCE(i.stock_level - COALESCE(SUM(CASE 
+               WHEN o.status = 'pending' OR o.status = 'processing'
+               THEN oi.quantity 
+               ELSE 0 
+           END), 0), i.stock_level) as actual_stock
+    FROM inventory i
+    LEFT JOIN order_items oi ON i.id = oi.product_id
+    LEFT JOIN orders o ON oi.order_id = o.id
+    WHERE i.status = 'active'
+    GROUP BY i.id
+    HAVING actual_stock > 0
+    ORDER BY i.category, i.product_name
 ");
 $stmt->execute();
 $products = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -115,21 +124,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Please select at least one item");
         }
         
-        // Calculate total amount & check availability from small_inventory
+        // Calculate total amount & check availability from stock_level
         foreach ($_POST['items'] as $item_id => $quantity) {
             if ($quantity > 0) {
-                // Get the unit_price from 'inventory'
-                $stmt = $conn->prepare("SELECT unit_price, product_name FROM inventory WHERE id = ?");
+                // Get the unit_price and stock_level from 'inventory'
+                $stmt = $conn->prepare("SELECT unit_price, product_name, stock_level FROM inventory WHERE id = ?");
                 $stmt->bind_param("i", $item_id);
                 $stmt->execute();
                 $product = $stmt->get_result()->fetch_assoc();
                 
-                // Check if we can make 'quantity' units based on small_inventory
-                $maxUnits = computeMaxAvailability($conn, $item_id);
-                if ($quantity > $maxUnits) {
+                // Check if the ordered quantity exceeds the available stock
+                if ($quantity > $product['stock_level']) {
                     throw new Exception(
-                        "Not enough ingredients to produce '$product[product_name]'. 
-                         Maximum available is $maxUnits."
+                        "Not enough stock for '$product[product_name]'. 
+                         Maximum available is $product[stock_level]."
                     );
                 }
                 
@@ -164,11 +172,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $order_id = $conn->insert_id;
         
-        // Add order items and update small_inventory
+        // Add order items and update stock_level
         foreach ($_POST['items'] as $item_id => $quantity) {
             if ($quantity > 0) {
                 // Grab product info again
-                $stmt = $conn->prepare("SELECT unit_price, product_name FROM inventory WHERE id = ?");
+                $stmt = $conn->prepare("SELECT unit_price, product_name, stock_level FROM inventory WHERE id = ?");
                 $stmt->bind_param("i", $item_id);
                 $stmt->execute();
                 $product = $stmt->get_result()->fetch_assoc();
@@ -190,8 +198,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
                 $stmt->execute();
                 
-                // Deduct from small_inventory
-                deductIngredients($conn, $item_id, $quantity);
+                // Update stock_level
+                $newStockLevel = $product['stock_level'] - $quantity;
+                $updateStmt = $conn->prepare("UPDATE inventory SET stock_level = ? WHERE id = ?");
+                $updateStmt->bind_param("ii", $newStockLevel, $item_id);
+                $updateStmt->execute();
             }
         }
         
@@ -285,11 +296,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                        name="items[<?php echo $product['id']; ?>]" 
                                                        data-price="<?php echo $product['unit_price']; ?>"
                                                        min="0" 
-                                                       max="<?php echo $availableQty; ?>" 
+                                                       max="<?php echo $product['actual_stock']; ?>" 
                                                        value="0">
                                             </div>
                                             <small class="text-muted">
-                                                Available: <?php echo $availableQty; ?>
+                                                Available: <?php echo $product['actual_stock']; ?>
                                             </small>
                                         </div>
                                     </div>
