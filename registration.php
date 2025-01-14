@@ -12,24 +12,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = htmlspecialchars(trim($_POST['address']));
     $type = 3; // Type 3 for Guest
 
-    // Password validation
-    $password_pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
-    if (!preg_match($password_pattern, $password)) {
-        $error = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.";
+    // Email format validation
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Invalid email format.";
     }
-    // Check if passwords match
-    else if ($password !== $confirm_password) {
-        $error = "Passwords do not match.";
-    } else {
-        // Insert into the guest table
-        $stmt = $conn->prepare("INSERT INTO guest (fullname, contact, email, password, type, address) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssis", $fullname, $contact, $email, password_hash($password, PASSWORD_DEFAULT), $type, $address);
+    // Check for duplicate email
+    else {
+        $check_email = $conn->prepare("SELECT email FROM guest WHERE email = ?");
+        $check_email->bind_param("s", $email);
+        $check_email->execute();
+        $result = $check_email->get_result();
         
-        if ($stmt->execute()) {
-            header("Location: login.php");
-            exit();
-        } else {
-            $error = "Registration failed. Please try again.";
+        if ($result->num_rows > 0) {
+            $error = "This email address is already registered.";
+        }
+        // Password validation
+        else {
+            $password_pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
+            if (!preg_match($password_pattern, $password)) {
+                $error = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.";
+            }
+            // Check if passwords match
+            else if ($password !== $confirm_password) {
+                $error = "Passwords do not match.";
+            } else {
+                // Insert into the guest table
+                $stmt = $conn->prepare("INSERT INTO guest (fullname, contact, email, password, type, address) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssis", $fullname, $contact, $email, password_hash($password, PASSWORD_DEFAULT), $type, $address);
+                
+                if ($stmt->execute()) {
+                    header("Location: login.php");
+                    exit();
+                } else {
+                    $error = "Registration failed. Please try again.";
+                }
+            }
         }
     }
 }
